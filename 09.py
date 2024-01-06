@@ -29,7 +29,7 @@ def intcode(data,inqueue = []):
 	output = []
 	ic = 0
 	rb = 0
-	while pc<len(data):
+	while pc in data:
 		opcode = data[pc] % 100
 		mode = data[pc]//100
 		modes = []
