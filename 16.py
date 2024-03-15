@@ -1,0 +1,45 @@
+data = [int(i) for i in "59704438946400225486037825889922820489843190285276623851650874501661128988396696069718826434708024511422795921838800269789913960190601300910423350290846455187315936154437526204822336114717910853157866334743979157700934791877134865819338701289349073169567308015162696370931073040617799608862983736292169088603858502137085782889297989277130087242942506416164598910622349994697403064628500493847458293153920207889114082230150603182206031692080645433361960358161328125435922180533297727179785114625861941781083443388701883640778753411135944703959349861504604264349715262460922987816868400261327556306957183739232107401756998929158348201149705670138765039"]
+data2 = [int(i) for i in "12345678"]
+"""
+base = [0, 1, 0, -1]
+
+for step in range(100):
+	new = []
+	for i in range(len(data)):
+		count = 0
+		spot = 0
+		total = 0
+		for j in data:
+			count+=1
+			if count>=i+1:
+				count=0
+				spot+=1
+				spot%=4
+			total+=base[spot]*j
+		new.append(abs(total)%10)
+	data = new
+
+print("".join([str(i) for i in data[:8]]))
+"""
+
+# not a fan of this version of oops! spot the trick
+# you can tell because it took me 2 months to actually focus enough to finish this one
+
+offset = 5970443
+
+memorize = {}
+for step in range(101):
+	memorize[(step,6500000)] = 0
+for step in range(101):
+	for pos in reversed(range(offset,6500000)):
+		if step == 0:
+			memorize[(step,pos)] = data[pos%len(data)]
+		else:
+			memorize[(step,pos)] = (memorize[(step-1,pos)]+memorize[(step,pos+1)])%10
+
+output = ""
+
+for i in range(8):
+	output+=str(memorize[(100,i+offset)])
+
+print(output)
