@@ -1,3 +1,4 @@
+import copy
 def processed(rawstring):
 	truedata = {}
 	for i,v in enumerate(rawstring.split(",")):
@@ -24,11 +25,18 @@ def write(number,mode,data,rb,result):
 		data[number+rb] = result
 	return data
 
+def asciiencode(instring):
+	return [ord(i) for i in instring]
+
+def asciiidecode(intlist):
+	return "".join([chr(i) for i in intlist])
+
 def intcode(data,inqueue = []):
 	pc = 0
 	output = []
 	ic = 0
 	rb = 0
+	asciimode = False
 	while pc in data:
 		opcode = data[pc] % 100
 		mode = data[pc]//100
@@ -56,6 +64,11 @@ def intcode(data,inqueue = []):
 			pc+=1
 		elif opcode == 4:
 			output.append(read(data[pc],modes[0],data,rb))
+			if asciimode:
+				if 0<=output[-1]<=127:
+					print(chr(output[-1]),end="")
+				else:
+					print(output[-1])
 			pc+=1
 		elif opcode == 5:
 			if read(data[pc],modes[0],data,rb)!=0:
@@ -85,4 +98,4 @@ def intcode(data,inqueue = []):
 		elif opcode == 99:
 			return output
 
-print(intcode(data))
+print(intcode(copy.deepcopy(data)))
