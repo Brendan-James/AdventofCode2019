@@ -1,9 +1,5 @@
 import copy
-data = """.##.#
-###..
-#...#
-##.#.
-.###.""".split("\n")
+data = """my input""".split("\n")
 
 data = [list(i) for i in data]
 
@@ -51,11 +47,7 @@ for x in range(5):
 
 print(total)
 
-data = """.##.#
-###..
-#.?.#
-##.#.
-.###.""".split("\n")
+data = """my input but with a question mark in the middle""".split("\n")
 
 empty = """.....
 .....
