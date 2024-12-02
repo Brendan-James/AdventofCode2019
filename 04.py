@@ -1,5 +1,5 @@
-datamin = 372304
-datamax = 847060
+datamin = "my input 1"
+datamax = "my input 2"
 
 total = 0
 
